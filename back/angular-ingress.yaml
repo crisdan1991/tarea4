@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: angular-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: llano-velasco.info
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: angular
+                port:
+                  number: 80
+            pathType: Prefix

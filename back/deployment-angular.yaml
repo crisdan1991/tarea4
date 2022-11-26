@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular
+spec:
+  selector:
+    matchLabels:
+      app: angular
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: angular
+    spec:
+      containers:
+        - name: angular-service
+          image: dan1991/angular:latest
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: spring
+  labels:
+    app: spring
+spec:
+  ports:
+    - name: spring
+      port: 8080
+      nodePort: 30780
+  #type: LoadBalancer
+  type: NodePort
+  selector:
+    app: spring

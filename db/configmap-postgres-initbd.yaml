@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-script-configmap
+data:
+  initdb.sh: |-
+    #!/bin/bash
+    set -e
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+     CREATE USER gitcd WITH PASSWORD 'gitcd';
+     CREATE USER dbuser WITH PASSWORD 'dbuser';
+     CREATE DATABASE bd_registro;
+     GRANT ALL PRIVILEGES ON DATABASE bd_registro TO dbuser;
+     GRANT ALL PRIVILEGES ON DATABASE bd_registro TO gitcd;
+     ALTER USER dbuser WITH SUPERUSER;
+     ALTER USER gitcd WITH SUPERUSER;
+    EOSQL
